@@ -1,0 +1,6 @@
+For 3 months (6/12-8/12) of queries:
+
+    > gzip cPickle data load method 
+       - tuple data load - 0.4 Gb - pd_tuple 
+       - dict data load - 2.3 Gb - pd_dict (0.4 Gb extra for loading process; gets released)
+

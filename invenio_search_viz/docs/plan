@@ -1,0 +1,27 @@
+----------------
+**TECHNIQUE**
+----------------
+weekly distributed
+
+some past weeks displayed, updated regularly
+
+3 views:( global, collection, author )
+
+for each view:
+    all paramters displayed distributed w.r.t. frequency
+
+threshold based on first 2000 queries or something
+
+================
+----------------
+**Data**
+----------------
+data is referred to in html files as: (say) /static/week_22.json
+
+================
+----------------
+**OPTIMIZATION**
+----------------
+- combine script to query data from SQL db and without dumping, process it there and then and produce json files, so as to save time
+
+- use parallel processing to process, load, dump faster

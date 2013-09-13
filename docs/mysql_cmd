@@ -1,0 +1,45 @@
+sudo mysql -u root -p invenio
+==================
+mysql> use test;
+
+mysql> create table fav_feat(name varchar(50), object_id varchar(100), state int);
+mysql> insert into fav_feat values('Quasi-normal Modes of Electromagnetic Perturbations','Koutsoumbas',0);
+mysql> insert into fav_feat values('Limits on Higgs boson masses','CERN-EP-99-060',0);
+mysql> insert into fav_feat values('Development of photon beam diagnostics','Treusch',0);
+
+mysql> select * from fav_feat;
+
+==================
+mysql> CREATE DATABASE invenio DEFAULT CHARACTER SET utf8;
+==================
+
+mysql> use invenio;
+
+mysql> select id, name from collection;
+
+mysql> SELECT TABLE_NAME  FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE='BASE TABLE' AND TABLE_SCHEMA='invenio';
+mysql> SELECT TABLE_NAME  FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='invenio';
+mysql> select id,name,join_policy,login_method from usergroup;
+mysql> select id,email,nickname, note, last_login from user;
+
+==================
+
+
+mysql> select term from idxPHRASE03F where term like '%muon%';
+
+mysql> SELECT id, type,body from example;
+
+mysql> SELECT id,name,dbquery,nbrecs FROM collection WHERE name="Articles" LIMIT 1;
+
+#Descendents_List (check webcoll, class Collection)
+mysql> SELECT id_dad,name FROM collection_collection AS cc, collection AS c WHERE cc.id_son=22 AND c.id=cc.id_dad;
+mysql> desc collection_collection;
+
+mysql> select * from collection_portalbox ;
+
+mysql> SELECT * from example;
+
+mysql> SELECT * from bib40x AS bx, bibrec_bib40x AS bibx ;
+mysql> SELECT * from bib40x AS bx, bibrec_bib40x AS bibx WHERE  bx.id=bibx.id_bibxxx AND bx.tag='400__a' ;
+
+SELECT id,name,description FROM usergroup, user_usergroup ug ORDER BY name;

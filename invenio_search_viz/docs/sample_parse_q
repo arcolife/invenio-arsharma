@@ -1,0 +1,63 @@
+http://fpaste.org/37968/73362137/ - password as usual.. contains different query sets, parsed and basic search unit results on them
+
+
+
+In [33]: data[data.keys()[6385]]
+Out[33]: 'p=bremsstrahlung%20energy%20spectra%20from%20electron&cc=Articles%20%26%20Preprints&f=&sf=&so=d&sp=[]&of=hb&ot=&as=0&ln=en&p1=&p2=&p3=&f1=&f2=&f3=&m1=&m2=&m3=&op1=&op2=&sc=0&d1y=0&d1m=0&d1d=0&d2y=0&d2m=0&d2d=0&jrec=21&rg=10'
+
+In [34]: parse_qs('p=bremsstrahlung%20energy%20spectra%20from%20electron&cc=Articles%20%26%20Preprints&f=&sf=&so=d&sp=[]&of=hb&ot=&as=0&ln=en&p1=&p2=&p3=&f1=&f2=&f3=&m1=&m2=&m3=&op1=&op2=&sc=0&d1y=0&d1m=0&d1d=0&d2y=0&d2m=0&d2d=0&jrec=21&rg=10')
+Out[34]: 
+{'as': ['0'],
+ 'cc': ['Articles & Preprints'],
+ 'd1d': ['0'],
+ 'd1m': ['0'],
+ 'd1y': ['0'],
+ 'd2d': ['0'],
+ 'd2m': ['0'],
+ 'd2y': ['0'],
+ 'jrec': ['21'],
+ 'ln': ['en'],
+ 'of': ['hb'],
+ 'p': ['bremsstrahlung energy spectra from electron'],
+ 'rg': ['10'],
+ 'sc': ['0'],
+ 'so': ['d'],
+ 'sp': ['[]']}
+
+
+In [335]: parse_qs(pd_dict[10])
+Out[335]: 
+{'c': ['SL Notes',
+  'LHC Project Notes',
+  'ATLAS Notes',
+  'CMS Notes',
+  'CERN Archives',
+  'HEP Institutes',
+  'Press Cuttings',
+  'Exhibition Objects',
+  'References in E-prints'],
+ 'p': ['author:"Anashin V V*"']}
+
+
+In [336]: pd_dict[10]
+Out[336]: 'c=SL+Notes&c=LHC+Project+Notes&c=ATLAS+Notes&c=CMS+Notes&c=CERN+Archives&c=HEP+Institutes&c=Press+Cuttings&c=Exhibition+Objects&c=References+in+E-prints&p=author%3A%22Anashin+V+V%2A%22'
+
+In [337]: pd_dict[6]
+Out[337]: 'p=PRIMARY+SCHOOL+COMPUTER+EDUCATION'
+
+In [338]: pd_dict[3236233]
+Out[338]: 'cc=Articles+%26+Preprints&p=efficient+muon+production&jrec=11'
+
+
+In [74]: pd_dict[3214343]
+Out[74]: 'p=Landau%2C+Lev+Davidovich&f=author&action_search=Search&c=&sf=&so=d&rm=&rg=10&sc=0&of=hb'
+
+In [75]: parse_qs(pd_dict[3214343])
+Out[75]: 
+{'action_search': ['Search'],
+ 'f': ['author'],
+ 'of': ['hb'],
+ 'p': ['Landau, Lev Davidovich'],
+ 'rg': ['10'],
+ 'sc': ['0'],
+ 'so': ['d']}
