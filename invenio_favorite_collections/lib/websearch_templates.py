@@ -26,6 +26,8 @@ import cgi
 import string
 import re
 import locale
+import json
+#import pprint
 from urllib import quote, urlencode
 from xml.sax.saxutils import escape as xml_escape
 
@@ -760,19 +762,25 @@ class Template:
 
         out += '''<!DOCTYPE HTML><html><head><meta charset="utf-8">'''
         out += '''<title>%(title)s</title></head>''' % { 'title':"search query visualizations"}
-        out += '''<p>%(foo)s<br>''' % {'foo':"foo-bar says Hola!"}
+        out += '''<p>%(foo)s<br></p>''' % {'foo':"foo-bar says Hola!"}
         
-        f = open('/opt/invenio/var/www/static/data.txt','r')
-        data_samp = f.read()
+        f = open('/opt/invenio/var/www/static/count_p.json','r')
+        data_p = json.load(f)
         f.close()
         
-        out += data_samp + '''</p>'''    
+        de = []
+        de_tmp={}
+        for key in data_p.keys():
+            de_tmp['count']=data_p[key]
+            de_tmp['name']=key
+            de.append(de_tmp)
+            de_tmp = {}
 
         out += '''<!DOCTYPE html>
 <head>
 <meta charset="utf-8">
 <script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
-<title>Popular Physics in History</title>
+<title>Search query visualization</title>
 <style>
 .link {
   stroke: #ccc;
@@ -786,62 +794,77 @@ class Template:
 </head>
 
 <body>
+    <script type="text/javascript">
 
-<script>
+de = ''' + str(de) + '''
 
-var width = 960,
-    height = 500
+    var mySVG = d3.select("body")
+      .append("svg")
+      .attr("width", 850) 
+      .attr("height", 950)
+      .style('position','absolute')
+      .style('top',150)
+      .style('left',150)
+      .attr('class','fig');
 
-var svg = d3.select("body").append("svg")
-    .attr("width", width)
-    .attr("height", height);
+    var heightScale = d3.scale.linear()
+      .domain([0, d3.max(de,function(d) { return d.count;})/2.5])
+      .range([0, 9000]);
 
-var force = d3.layout.force()
-    .gravity(.05)
-    .distance(100)
-    .charge(-100)
-    .size([width, height]);
+    mySVG.selectAll(".xLabel")
+      .data(de)
+      .enter().append("svg:text")
+      .attr("x", function(d,i) {return 43 + (i * 22);})
+      .attr("y", 435)
+      .attr("text-anchor", "middle") 
+      .text(function(d,i) {return d.name;})
+      .attr('transform',function(d,i) {return 'rotate(-90,' + (113 + (i * 22)) + ',435)';}); 
 
-d3.json("/static/graph.json", function(error, json) {
-  force
-      .nodes(json.nodes)
-      .links(json.links)
-      .start();
+    mySVG.selectAll(".yLabel")
+      .data(heightScale.ticks(190))
+      .enter().append("svg:text")
+      .attr('x',80)
+      .attr('y',function(d) {return 400 - heightScale(d);})
+      .attr("text-anchor", "end") 
+      .text(function(d) {return d;}); 
 
-  var link = svg.selectAll(".link")
-      .data(json.links)
-    .enter().append("line")
-      .attr("class", "link");
+    mySVG.selectAll(".yTicks")
+      .data(heightScale.ticks(140))
+      .enter().append("svg:line")
+      .attr('x1','90')
+      .attr('y1',function(d) {return 400 - heightScale(d);})
+      .attr('x2',520)
+      .attr('y2',function(d) {return 400 - heightScale(d);})
+      .style('stroke','lightgray'); 
 
-  var node = svg.selectAll(".node")
-      .data(json.nodes)
-    .enter().append("g")
-      .attr("class", "node")
-      .call(force.drag);
-
-  node.append("image")
-      .attr("xlink:href", "https://github.com/favicon.ico")
-      .attr("x", -8)
-      .attr("y", -8)
-      .attr("width", 16)
-      .attr("height", 16);
-
-  node.append("text")
-      .attr("dx", 12)
-      .attr("dy", ".35em")
-      .text(function(d) { return d.name });
-
-  force.on("tick", function() {
-    link.attr("x1", function(d) { return d.source.x; })
-        .attr("y1", function(d) { return d.source.y; })
-        .attr("x2", function(d) { return d.target.x; })
-        .attr("y2", function(d) { return d.target.y; });
-
-    node.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
-  });
-});
-
-</script>
+    var myBars = mySVG.selectAll('rect')
+      .data(de)
+      .enter()
+      .append('svg:rect')
+      .attr('width',20)
+      .attr('height',function(d,i) {return heightScale(d.count);})
+      .attr('x',function(d,i) {return (i * 22) + 100;})
+      .attr('y',function(d,i) {return 400 - heightScale(d.count);})
+      .style('fill','lightblue')
+      .on('mouseover', function(d,i) { 
+         d3.select(this)
+            .style('fill','gray'); 
+         statusText 
+            .text(d.count)
+            .attr('fill','white')
+            .attr("text-anchor", "start") 
+            .attr("x", (i * 22) + 105) 
+            .attr("y", 414) 
+            .attr('transform', 'rotate(-90,' + (100 + (i * 22)) + ',400)'); }) 
+      .on('mouseout', function(d,i) { 
+         statusText 
+           .text(''); 
+         d3.select(this)
+           .style('fill','lightblue'); 
+      }); 
+   var statusText = mySVG.append('svg:text');
+   </script>
+<p> this maps the paramteres with their count for a week </p> ''' + str(de) + '''
 </body>
 </html>
 '''
