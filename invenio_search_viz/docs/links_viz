@@ -1,0 +1,42 @@
+https://developers.google.com/chart/interactive/docs/gallery/bubblechart?hl=de-DE#Overview
+
+http://www.nowherenearithaca.com/2012/12/simulating-us-birthsdeaths-in-real-time.html
+
+http://meloncholy.com/blog/using-d3-for-realtime-webserver-stats/
+
+http://bengler.no/seeplan
+
+Bullet chart http://www.d3noob.org/2013/07/introduction-to-bullet-charts-in-d3js.html 
+       	     & http://bl.ocks.org/mbostock/4061961
+
+http://bl.ocks.org/mbostock/3943967
+http://bl.ocks.org/mbostock/3886394
+http://bl.ocks.org/mbostock/4347473
+http://bl.ocks.org/mbostock/4348373
+http://bl.ocks.org/mbostock/4248145
+http://bl.ocks.org/mbostock/4062844
+http://bl.ocks.org/mbostock/4062085
+http://bl.ocks.org/mbostock/4061961
+http://bl.ocks.org/adamgreenhall/1314483
+-------------
+really good curations: 
+a> http://techslides.com/over-1000-d3-js-examples-and-demos/
+b> http://bl.ocks.org/mbostock
+-------------
+TIME SERIES speciale:
+a> https://github.com/square/cube
+b> http://code.shutterstock.com/rickshaw/
+=============
+FINAL choices
+-------------
+1. Grouped Bar Chart: http://bl.ocks.org/mbostock/3887051 
+   	       	      & http://bl.ocks.org/mbostock/3943967
+2. Cubism.js timeseries : http://square.github.io/cubism/
+3. Object constancy : http://bl.ocks.org/nsonnad/4175202
+4. Area gradient: http://mbostock.github.io/d3/talk/20111018/area-gradient.html
+		  & https://github.com/boorad/d3-tsline/
+		  & http://code.shutterstock.com/rickshaw/ (https://github.com/shutterstock/rickshaw)
+5. Sortable Table with Bars : http://bl.ocks.org/mbostock/3719724
+6. grouped stacked chart: http://bl.ocks.org/mbostock/4062085
+7. line plus bar: http://nvd3.org/ghpages/linePlusBar.html
+8. 
